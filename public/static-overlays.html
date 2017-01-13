@@ -23,7 +23,8 @@
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<link href="css/styles.css" rel="stylesheet" type="text/css" />
-	<!-- <script src="js/ui.js"></script> -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
@@ -102,6 +103,24 @@
 
 	$(document).ready(function() {
 		paintUI();
+		var socket = io();
+
+		// sound stuff
+		let soundsLoaded = false;
+		createjs.Sound.on("fileload", function() {
+			soundsLoaded = true;
+			createjs.Sound.play('soundtrack');
+		});
+		createjs.Sound.registerSounds([{
+			src: 'adventure.mp3',
+			id: 'soundtrack'
+		},{
+			src: 'power_up.mp3',
+			id: 'power_up'
+		},{
+			src: 'power_down.mp3',
+			id: 'power_down'
+		}], './sounds/');
 
 		var avatarContainerOpen = false;
 
@@ -159,6 +178,7 @@
 					hideAvatarContainer();
 				}, 5000);
 				paintUI();
+				createjs.Sound.play('power_up');
 
 				if(typeof currentOverlayIndex !== null) {
 					overlays[currentOverlayIndex].task.done = true;
@@ -169,6 +189,32 @@
 			}
 
 			console.log('current state: white fang is ' + avatarState.current);
+		}
+
+		socket.on('decrease-white-fang', function() {
+			decreaseWhiteFangAndAlert();
+		});
+
+		socket.on('task-accomplished', data => {
+			if(data) {
+				overlays[data].task.done = true;
+			}
+		});
+
+		function decreaseWhiteFangAndAlert() {
+			if(avatarState.current > 0) {
+				avatarState.previous = avatarState.current--;
+				showAvatarContainer();
+				setTimeout(function() {
+					hideAvatarContainer();
+				}, 5000);
+				paintUI();
+				soundjs.Sound.play('power_down');
+			} else {
+				console.log('white fang is not in the valid state range');
+			}
+
+			showAlert('danger');
 		}
 
 		function paintUI() {

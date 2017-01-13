@@ -8,7 +8,7 @@
   z-index: 500;
 }
 
-#success-alert, #warning-alert {
+#success-alert, #warning-alert, #danger-alert {
   margin-top: 60px;
   margin-left: 10px;
   z-index: 1000;

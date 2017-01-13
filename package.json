@@ -14,6 +14,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "hbs": "^4.0.1",
+    "nomad-stream": "0.0.8",
     "path": "^0.12.7"
   }
 }
