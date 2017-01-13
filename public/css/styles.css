@@ -1,0 +1,46 @@
+#avatar-container {
+  width: 500px;
+  height: 400px;
+  background-color: white;
+  position: absolute;
+  right: -500px;
+  top: 50px;
+  z-index: 500;
+}
+
+#success-alert, #warning-alert {
+  margin-top: 60px;
+  margin-left: 10px;
+  z-index: 1000;
+  position: absolute;
+  bottom: 20;
+}
+
+#avatar-header {
+  width: 100%;
+  height: 100px;
+}
+
+#avatar-header div {
+  vertical-align: middle;
+}
+
+#avatar-img {
+  background-image: url("../images/winter_background.jpg");
+  width: 100%;
+  text-align: center;
+}
+
+#avatar-img img {
+  width: 50%;
+  position: relative;
+  bottom: -50px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 20px;
+  width: 100%;
+  background-color: black;
+}

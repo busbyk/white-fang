@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <title>LM Bot</title>
+    <style type="text/css">
+        form > input {
+            width: 350px;
+        }
+    </style>
+</head>
+<body>
+<h3>Hello World of Form Submit</h3>
+<div id="form-container">
+    <form name="form" action="/intent" method="post">
+        <input type="text" placeholder="text to analyze" name="text"/>
+        <button type="submit">analyze</button>
+    </form>
+</div>
+
+<br/><br/>
+
+<div id="result-container">
+    <code>{{code}}</code>
+</div>
+</body>
+</html>
