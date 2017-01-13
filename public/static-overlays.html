@@ -107,15 +107,17 @@
 
 		// sound stuff
 		let soundsLoaded = false;
+		let soundTrackInstance;
 		createjs.Sound.on("fileload", function() {
 			soundsLoaded = true;
-			createjs.Sound.play('soundtrack');
+			soundTrackInstance = createjs.Sound.play('soundtrack');
+			soundTrackInstance.volume = .6;
 		});
 		createjs.Sound.registerSounds([{
 			src: 'adventure.mp3',
 			id: 'soundtrack'
 		},{
-			src: 'power_up.mp3',
+			src: 'power_up.wav',
 			id: 'power_up'
 		},{
 			src: 'power_down.mp3',
@@ -178,7 +180,10 @@
 					hideAvatarContainer();
 				}, 5000);
 				paintUI();
+
+				soundTrackInstance.volume = .3;
 				createjs.Sound.play('power_up');
+				soundTrackInstance.volume = .6;
 
 				if(typeof currentOverlayIndex !== null) {
 					overlays[currentOverlayIndex].task.done = true;
@@ -209,7 +214,7 @@
 					hideAvatarContainer();
 				}, 5000);
 				paintUI();
-				soundjs.Sound.play('power_down');
+				createjs.Sound.play('power_down');
 			} else {
 				console.log('white fang is not in the valid state range');
 			}

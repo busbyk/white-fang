@@ -37,10 +37,15 @@ nomad.subscribe('QmezyLTWQJKjnK2qXwQDgmTwP5LBjayrVkqzUwmV5Sfr1o', obj => {
 		if(obj.message.event == 'device_on_off') {
 			if(obj.message.data) { // device is on, decrease white fang
 				console.log('emitting decrease-white-fang');
-				eventEmitter.emit('decrease-white-fang');
+				eventEmitter.emit('nomad-publish-event', {
+					event: 'decrease-white-fang'
+				});
 			} else {
 				console.log('emitting complete-task');
-				eventEmitter.emit('complete-task', 'TV'); //default to the device being the TV for the purpose of demo...
+				eventEmitter.emit('nomad-publish-event', {
+					event: 'complete-task',
+					data: 'TV'
+				}); //default to the device being the TV for the purpose of demo...
 			}
 		}
 	}
