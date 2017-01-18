@@ -26,37 +26,30 @@ let server = app.listen(app.get('port'), () => {
 });
 
 // set up nomad
-const Nomad = require('nomad-stream');
-const nomad = new Nomad();
+// const Nomad = require('nomad-stream');
+// const nomad = new Nomad();
 
-nomad.subscribe('QmezyLTWQJKjnK2qXwQDgmTwP5LBjayrVkqzUwmV5Sfr1o', obj => {
-	console.log('got nomad message: ' + JSON.stringify(obj));
-
-	if(obj.message) {
-		obj.message = JSON.parse(obj.message); //parse json
-		if(obj.message.event == 'device_on_off') {
-			if(obj.message.data) { // device is on, decrease white fang
-				console.log('emitting decrease-white-fang');
-				eventEmitter.emit('nomad-publish-event', {
-					event: 'decrease-white-fang'
-				});
-			} else {
-				console.log('emitting complete-task');
-				eventEmitter.emit('nomad-publish-event', {
-					event: 'complete-task',
-					data: 'TV'
-				}); //default to the device being the TV for the purpose of demo...
-			}
-		}
-	}
-});
-
-// setTimeout(function() {
-// 	console.log('emitting fake event!');
-// 	eventEmitter.emit('nomad-publish-event', {
-// 		event: 'decrease-white-fang'
-// 	})
-// }, 5000);
+// nomad.subscribe('QmezyLTWQJKjnK2qXwQDgmTwP5LBjayrVkqzUwmV5Sfr1o', obj => {
+// 	console.log('got nomad message: ' + JSON.stringify(obj));
+//
+// 	if(obj.message) {
+// 		obj.message = JSON.parse(obj.message); //parse json
+// 		if(obj.message.event == 'device_on_off') {
+// 			if(obj.message.data) { // device is on, decrease white fang
+// 				console.log('emitting decrease-white-fang');
+// 				eventEmitter.emit('nomad-publish-event', {
+// 					event: 'decrease-white-fang'
+// 				});
+// 			} else {
+// 				console.log('emitting complete-task');
+// 				eventEmitter.emit('nomad-publish-event', {
+// 					event: 'complete-task',
+// 					data: 'TV'
+// 				}); //default to the device being the TV for the purpose of demo...
+// 			}
+// 		}
+// 	}
+// });
 
 // set up socket.io
 const io = require('socket.io')(server);
