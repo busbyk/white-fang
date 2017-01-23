@@ -19,6 +19,16 @@ app.use('/bower_components', express.static('bower_components'));
 app.use('/lib', express.static('lib'));
 app.use(express.static('public'));
 
+app.use('/decreaseWhiteFang', (req, res) => {
+	console.log('should decrease white fang\'s health');
+
+	eventEmitter.emit('nomad-publish-event', {
+		event: 'decrease-white-fang'
+	});
+
+	res.send('successful');
+});
+
 // Start express server
 let server = app.listen(app.get('port'), () => {
 	let port = server.address().port;
